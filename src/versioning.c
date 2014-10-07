@@ -18,6 +18,8 @@
 
 #define BUFFERSIZE						(64 * 1024)
 
+#define DEFAULT_VERSION_OFFSET			0x410
+
 
 int read_file(char *file_name, char *buf, PDWORD len)
 {
@@ -95,6 +97,7 @@ int main(int argc, char *argv[]) {
 	int version_offset;
 	int index;
 
+#define __print_argument__
 #ifdef __print_argument__
 	print_argv(argc, argv);
 #endif
@@ -108,7 +111,10 @@ int main(int argc, char *argv[]) {
 	if (read_file(argv[1], ReadBuffer, &dwBytesReturned))
 		return EXIT_FAILURE;
 
-	version_offset = strtol(argv[2], NULL, 10);
+	if (argc >= 3)
+		version_offset = strtol(argv[2], NULL, 10);
+	else
+		version_offset = DEFAULT_VERSION_OFFSET;
 
 	version[0] = '-';
 	strcpy(version + 1, ReadBuffer + version_offset);
