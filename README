@@ -1,0 +1,3 @@
+Bin file versioning
+Fetch version information from bin file itself then copy
+and add version information to new file name.
